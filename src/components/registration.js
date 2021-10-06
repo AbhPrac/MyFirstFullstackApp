@@ -1,9 +1,12 @@
 import { render } from '@testing-library/react'; 
 import React from 'react';
-import { Grid } from '@mui/material';
-import "./styles.scss";
-class Login extends React.Component{
+import {Link} from 'react-router-dom';
+import { Button, Grid, Paper, TextField } from '@mui/material';
+import "../styles.scss";
+import { connect } from 'react-redux';
+class Registration extends React.Component{
     constructor(props){
+        super(props);
       this.state={
           userdetails:{
              firstName:" ",
@@ -16,6 +19,7 @@ class Login extends React.Component{
              alreadyRegisterd:false,
           }
       }
+    }
       render(){
           return(
             <div className="login-root-class">
@@ -23,10 +27,9 @@ class Login extends React.Component{
                <Grid item xs={3}></Grid>
                <Grid className="login-component" item xs={6}>
                  <Paper fullwidth elevation={3} className="paper-root-class">
-                 <h1>Login</h1>
+                 <h1>Registration</h1>
                    <form className="login-form-root-class">
                       <TextField 
-                        fullwidth
                         variant="outlined"
                         id="outlined-basic"
                         label="firstname"
@@ -41,7 +44,6 @@ class Login extends React.Component{
                         required
                       />
                       <TextField 
-                        fullwidth
                         variant="outlined"
                         id="outlined-basic"
                         label="lastname"
@@ -56,7 +58,6 @@ class Login extends React.Component{
                         required
                       />
                       <TextField 
-                        fullwidth
                         variant="outlined"
                         id="outlined-basic"
                         label="UserName"
@@ -71,7 +72,6 @@ class Login extends React.Component{
                         required
                       />
                       <TextField 
-                        fullwidth
                         variant="outlined"
                         id="outlined-basic"
                         label="email"
@@ -87,7 +87,6 @@ class Login extends React.Component{
                         required
                       />
                        <TextField 
-                        fullwidth
                         onChange={(e)=>{
                           this.setState((prevState)=>({
                               userdetails:{
@@ -100,7 +99,6 @@ class Login extends React.Component{
                         label="password"        
                       />
                        <TextField 
-                        fullwidth
                         onChange={(e)=>{
                           this.setState((prevState)=>({
                               userdetails:{
@@ -119,15 +117,15 @@ class Login extends React.Component{
                       />
                    </form>
                    <div className="button-class">
-                      <Button
-                        variant="contained"
-                        size="medium"
-                      >Login</Button>
                       <Button 
                         size="medium"
                         variant="outlined"
                       > Register
                       </Button>
+                      <Button
+                        variant="contained"
+                        size="medium"
+                      ><Link  style={{color:'white'}} to="/Login">Login</Link></Button>
                    </div>
                  </Paper>
                </Grid>
@@ -137,5 +135,11 @@ class Login extends React.Component{
           )
       }
     }
-}
-export default Login;
+
+    const mapStateToProps = (userData)=>{
+      console.log(userData);
+    }
+
+    
+
+export default  connect(mapStateToProps)(Registration);

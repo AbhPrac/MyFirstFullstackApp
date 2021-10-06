@@ -27,6 +27,10 @@ body{
               align-items: center;
               margin: 10px;
               row-gap: 15px;
+              width: 100%;
+              div{
+                  min-width: 75%;
+              }
             }
             .button-class{
                 flex-direction: row;

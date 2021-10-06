@@ -2,6 +2,11 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { Button, Grid, Paper, TextField } from '@mui/material';
 import "../styles.scss";
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import actionCreators  from "../actions/actionCreators"
+import {getUser,getErros,getUsersPending} from  '../reducer/reducer'
+
 class Login extends React.Component{
     constructor(props){
         super(props)
@@ -18,7 +23,15 @@ class Login extends React.Component{
         
       }
     }
+
+    componentDidMount(){
+      this.props.dispatch(actionCreators.fetchUserData());
+    }
+    handleSubmit=(e)=>{
+      this.props.dispatch(actionCreators.userLogin(this.state.userdetails));
+    }
       render(){
+        console.log(this.props);
           return(
             <div className="login-root-class">
                  <Grid container className="grid-root" spacing={3}>
@@ -60,11 +73,12 @@ class Login extends React.Component{
                            <Button
                              variant="contained"
                              size="medium"
+                             onClick={this.handleSubmit}
                            >Login</Button>
                            <Button 
                              size="medium"
                              variant="outlined"
-                           > Register
+                           > <Link to="/Registration">Register</Link>
                            </Button>
                         </div>
                       </Paper>
@@ -75,4 +89,8 @@ class Login extends React.Component{
           )
       }
     }
-export default Login;
+
+  const mapStateToProps=(userdata)=>{
+     error : 
+  }  
+export default connect(mapStateToProps)(Login);
