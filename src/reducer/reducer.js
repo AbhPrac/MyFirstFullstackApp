@@ -24,18 +24,19 @@ import * as types from "../actions/actiontypes"
                 return{
                     ...state,
                     pending:false,
-                    prodcuts:action.payload
+                    products:action.payload
                 }
                 case types.USERS_INFO_FAILURE:
                     return{
                         ...state,
                         pending:false,
-                        prodcuts:action.error
+                        products:action.error
                     }
     }
 }
 
-export const getUser=state=>(state.prodcuts)
-export const getErros=state=>(state.error)
-export const getUsersPending=state=>(state.pending)
+export const getUser=state=>(intialState.products)
+export const getErrors=state=>(intialState.error)
+export const getUsersPending=state=>(intialState.pending)
 export default reducer;
+

@@ -5,8 +5,8 @@ import "../styles.scss";
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import actionCreators  from "../actions/actionCreators"
-import {getUser,getErros,getUsersPending} from  '../reducer/reducer'
-
+import {getUser,getErrors,getUsersPending} from  '../reducer/reducer'
+import fetchProdcuts from "../server/fetchUserInfo";
 class Login extends React.Component{
     constructor(props){
         super(props)
@@ -25,7 +25,7 @@ class Login extends React.Component{
     }
 
     componentDidMount(){
-      this.props.dispatch(actionCreators.fetchUserData());
+      this.props.dispatch(fetchProdcuts());
     }
     handleSubmit=(e)=>{
       this.props.dispatch(actionCreators.userLogin(this.state.userdetails));
@@ -91,6 +91,8 @@ class Login extends React.Component{
     }
 
   const mapStateToProps=(userdata)=>{
-     error : 
+     error : getErrors(userdata);
+     userinfo:getUser(userdata);
+     statusGettingData:getUsersPending(userdata);
   }  
 export default connect(mapStateToProps)(Login);
