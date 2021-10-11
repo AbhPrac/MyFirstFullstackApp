@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import actionCreators  from "../actions/actionCreators"
 import {getUser,getErrors,getUsersPending} from  '../reducer/reducer'
-import fetchProdcuts from "../server/fetchUserInfo";
+import fetchProducts from "../server/fetchUserInfo"
+
+
 class Login extends React.Component{
     constructor(props){
         super(props)
@@ -25,7 +27,9 @@ class Login extends React.Component{
     }
 
     componentDidMount(){
-      this.props.dispatch(fetchProdcuts());
+
+      this.props.dispatch(fetchProducts());
+      console.log("this one is called");
     }
     handleSubmit=(e)=>{
       this.props.dispatch(actionCreators.userLogin(this.state.userdetails));
@@ -37,11 +41,11 @@ class Login extends React.Component{
                  <Grid container className="grid-root" spacing={3}>
                     <Grid item xs={3}></Grid>
                     <Grid className="login-component" item xs={6}>
-                      <Paper fullwidth elevation={3} className="paper-root-class">
+                      <Paper  elevation={3} className="paper-root-class">
                       <h1>Login</h1>
                         <form className="login-form-root-class">
                            <TextField 
-                             fullwidth
+                             
                              variant="outlined"
                              id="outlined-basic"
                              label="UserName"
@@ -56,7 +60,7 @@ class Login extends React.Component{
                              required
                            />
                             <TextField 
-                             fullwidth
+                            
                              onChange={(e)=>{
                                this.setState((prevState)=>({
                                    userdetails:{
@@ -91,8 +95,10 @@ class Login extends React.Component{
     }
 
   const mapStateToProps=(userdata)=>{
-     error : getErrors(userdata);
-     userinfo:getUser(userdata);
-     statusGettingData:getUsersPending(userdata);
-  }  
+    return {
+     error : getErrors(userdata),
+     userinfo:getUser(userdata),
+     statusGettingData:getUsersPending(userdata)
+    }
+  }
 export default connect(mapStateToProps)(Login);

@@ -1,7 +1,6 @@
 import * as types from "../actions/actiontypes"
 
   let intialState = {
-    userDetails:" ",
     pending: false,
     products: [],
     error: null
@@ -10,11 +9,6 @@ import * as types from "../actions/actiontypes"
  const reducer =(state=intialState,action)=>{
 
     switch(action.type){
-        case types.USER_DETAILS:
-            return{
-                ...state,
-                userDetails:action.payload
-            }
             case types.USERS_INFO_PENDING:
             return{
                 ...state,
@@ -32,6 +26,10 @@ import * as types from "../actions/actiontypes"
                         pending:false,
                         products:action.error
                     }
+                    default:
+                        return{
+                            ...state
+                        }
     }
 }
 

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import Registration from "../src/components/registration"
 import configureStore from "../src/store/store"
+
 const store = configureStore(); 
 
 ReactDOM.render(

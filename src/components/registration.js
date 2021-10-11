@@ -4,21 +4,29 @@ import {Link} from 'react-router-dom';
 import { Button, Grid, Paper, TextField } from '@mui/material';
 import "../styles.scss";
 import { connect } from 'react-redux';
+import actionCreators  from '../actions/actionCreators';
+import postUsers from "../server/newUserRegPost"
 class Registration extends React.Component{
     constructor(props){
         super(props);
       this.state={
           userdetails:{
+   
              firstName:" ",
              lastName:" ",
-             createUsername:"",
+             userName:"",
              email:" ",
              password:" ",
-             skills:[],
-             workingStatus:false,
-             alreadyRegisterd:false,
+             skills:" ",
           }
       }
+    }
+
+
+    handleSubmit = (e)=>{
+     e.preventDefault();
+     this.props.dispatch(actionCreators.userRegistration(this.state.userdetails))
+     postUsers(this.state.userdetails);
     }
       render(){
           return(
@@ -26,7 +34,7 @@ class Registration extends React.Component{
             <Grid container className="grid-root" spacing={3}>
                <Grid item xs={3}></Grid>
                <Grid className="login-component" item xs={6}>
-                 <Paper fullwidth elevation={3} className="paper-root-class">
+                 <Paper  elevation={3} className="paper-root-class">
                  <h1>Registration</h1>
                    <form className="login-form-root-class">
                       <TextField 
@@ -65,7 +73,7 @@ class Registration extends React.Component{
                          this.setState((prevState)=>({
                            userdetails:{
                                ...prevState.userdetails,
-                               createUsername:e.target.value
+                               userName:e.target.value
                            }
                          }))
                         }}
@@ -103,12 +111,7 @@ class Registration extends React.Component{
                           this.setState((prevState)=>({
                               userdetails:{
                                   ...prevState.userdetails,
-                                     skills:(e)=>{
-                                        let skillSet = this.state.userdetails.skills;
-                                         return[
-                                            skillSet.push(e.target.vale)
-                                         ]
-                                     }
+                                     skills:e.target.value
                               }
                           }))
                         }}
@@ -120,6 +123,7 @@ class Registration extends React.Component{
                       <Button 
                         size="medium"
                         variant="outlined"
+                        onClick={this.handleSubmit}
                       > Register
                       </Button>
                       <Button
@@ -140,6 +144,10 @@ class Registration extends React.Component{
       console.log(userData);
     }
 
-    
+    /*const mapDispatchToProps=(dispatch)=>{
+      userdetails:()=>{
+
+      }
+    }*/
 
 export default  connect(mapStateToProps)(Registration);

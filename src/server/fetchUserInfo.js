@@ -1,24 +1,40 @@
 import * as types from "../actions/actiontypes";
-import actionCreators from "../actions/actionCreators";
+import actionCreatorsReg from "../actions/actionCreatorsReg";
+import axios from "axios";
 
- const fetchProdcuts=()=>{
+const fetchProducts =()=>{
+     return (dispatch)=>{
+        return  axios.get("http://localhost:3002/usersList")
+        .then((resposne)=>{
+            return resposne.data
+        }).then((data)=>{
+             dispatch(actionCreatorsReg.fetchUserData(data));
+        })
+        .catch((error)=>{
+           dispatch(actionCreatorsReg.fetchUserDataFailure(error));
+        })
+
+        }
+     }
+  
+export default fetchProducts;
+
+
+
+
+
+ /* return dispatch=>{
+        dispatch(actionCreatorsReg.fetchUserDataPending);
+
     return dispatch=>{
-         dispatch(actionCreators.fetchUserDataPending);
-         fetch("http://localhost:3002/usersList")
-         .then((userData)=>{
-             console.log("this is coming from fetchUSerinfoFile",userData.json());
-             
-         }).then((userData)=>{
-            if(userData.error){
-                throw(userData.error);
-            }
-            dispatch(actionCreators.fetchUserData(userData));
-         })
-         .catch((error)=>{
-           dispatch((error)=>{
-               dispatch(actionCreators.fetchUserDataFailure(error));
-           })
-         })
-}
-}
-export default fetchProdcuts;
+        /*fetch("http://localhost:3002/usersList")
+        .then(handleErrors)
+        .then(res=>res.json)
+        .then(json=>{
+            dispatch(actionCreatorsReg.fetchUserData(json));
+            console.log("Hello world",json)
+            return json
+            
+        }).catch(error=>{actionCreatorsReg.fetchUserDataFailure(error)});
+    };
+}*/
